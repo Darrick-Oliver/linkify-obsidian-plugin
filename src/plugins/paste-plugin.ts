@@ -5,14 +5,14 @@ import {
 	matchMarkdownUrl,
 	isUrl,
 } from "../utils";
-import { EditorRange } from "../types/editor";
+import { OrderedRange } from "../types/range";
 import { LinkifySettings } from "src/settings";
 
 type ReplacementType = "TEXT" | "URL";
 type Replacement = {
 	type: ReplacementType;
-	cursorPosition: EditorRange;
-	position: EditorRange;
+	cursorPosition: OrderedRange;
+	position: OrderedRange;
 };
 
 export class PastePlugin {
@@ -112,7 +112,7 @@ export class PastePlugin {
 	}
 
 	private getReplacement(
-		range: EditorRange
+		range: OrderedRange
 	): Omit<Replacement, "cursorPosition"> {
 		const normalUrlMatch = isUrl(
 			this.editor.getRange(range.start, range.end),
@@ -158,7 +158,7 @@ export class PastePlugin {
 		}
 	}
 
-	private handleTextReplacement(url: string, range: EditorRange) {
+	private handleTextReplacement(url: string, range: OrderedRange) {
 		const selectedString = this.editor.getRange(range.start, range.end);
 
 		this.editor.replaceRange(
@@ -177,8 +177,8 @@ export class PastePlugin {
 
 	private handleUrlReplacement(
 		replacement: string,
-		range: EditorRange,
-		cursorRange: EditorRange
+		range: OrderedRange,
+		cursorRange: OrderedRange
 	) {
 		if (
 			arePositionsEqual(range.start, cursorRange.start) &&

@@ -1,7 +1,7 @@
 import { App, Editor, Menu } from "obsidian";
 import { getWordFromContext, matchMarkdownUrl } from "../utils";
 import { EditLinkModal } from "../edit-link-modal";
-import { EditorRange } from "../types/editor";
+import { OrderedRange } from "../types/range";
 
 export class LinkInterceptorPlugin {
 	app: App;
@@ -61,7 +61,11 @@ export class LinkInterceptorPlugin {
 		menu.showAtMouseEvent(evt);
 	}
 
-	private replaceRange(indices: number[], range: EditorRange, value: string) {
+	private replaceRange(
+		indices: number[],
+		range: OrderedRange,
+		value: string
+	) {
 		const [linkStart, linkEnd] = indices;
 		this.editor.replaceRange(
 			value,

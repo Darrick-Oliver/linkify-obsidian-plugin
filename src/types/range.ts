@@ -1,6 +1,6 @@
 import { EditorPosition } from "obsidian";
 
-export type EditorRange = {
+export type OrderedRange = {
 	start: EditorPosition;
 	end: EditorPosition;
 };
